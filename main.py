@@ -5,11 +5,14 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+import time
+import json
 
 r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
+
 
 def get_data_from_website(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
@@ -39,6 +42,7 @@ def get_data_from_website(page_source):
 
     return records
 
+
 def set_database_records():
     records_list = get_data_from_website(get_html_page())
     r.delete('records_data')
@@ -48,14 +52,15 @@ def set_database_records():
     # Use RPUSH to push the JSON string to the end of a list
         r.rpush('records_data', json_data)
 
-def get_html_page()
-  received_html = ''
+
+def get_html_page():
+    received_html = ''
     chrome_options = Options()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--headless')
-    #proxy_server = "47.243.92.199:3128"
-    #chrome_options.add_argument(f'--proxy-server={proxy_server}')
+    # proxy_server = "47.243.92.199:3128"
+    # chrome_options.add_argument(f'--proxy-server={proxy_server}')
     driver = webdriver.Chrome(options=chrome_options)
 
     try:
@@ -74,8 +79,10 @@ def get_html_page()
         time.sleep(2)  # Adjust the sleep duration based on your needs
 
         driver.find_element(By.XPATH, "//*[@id='email']").send_keys(email)
-        driver.find_element(By.XPATH, "//*[@id='password']").send_keys(password)
-        driver.find_element(By.XPATH, "/html/body/div[7]/div[2]/div/div[3]/button").click()
+        driver.find_element(
+            By.XPATH, "//*[@id='password']").send_keys(password)
+        driver.find_element(
+            By.XPATH, "/html/body/div[7]/div[2]/div/div[3]/button").click()
 
         # Replace WebDriverWait with time.sleep for waiting after login
         time.sleep(2)  # Adjust the sleep duration based on your needs
@@ -89,6 +96,7 @@ def get_html_page()
     finally:
         driver.quit()
     return received_html
+
 
 if __name__ == "__main__":
     set_database_records()
