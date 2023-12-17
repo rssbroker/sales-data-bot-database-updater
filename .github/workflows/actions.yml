@@ -25,5 +25,8 @@ jobs:
       - name: execute py script # run main.py
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
+          NAMEBIO_EMAIL: ${{ secrets.NAMEBIO_EMAIL }}
+          NAMEBIO_PASSWORD: ${{ secrets.NAMEBIO_PASSWORD }}
+          REDIS_URL: ${{secrets.REDIS_URL}}
         run: python main.py
           
