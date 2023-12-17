@@ -88,3 +88,6 @@ def get_html_page()
     finally:
         driver.quit()
     return received_html
+
+if __name__ == "__main__":
+    set_database_records()
