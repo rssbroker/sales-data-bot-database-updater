@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import redis
+import os
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
