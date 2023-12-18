@@ -13,6 +13,7 @@ r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
+my_dpi = 4.0
 
 
 def get_data_from_website(page_source):
@@ -57,12 +58,15 @@ def get_html_page():
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--window-size=6000x5000")
+    chrome_options.add_argument(f"--force-device-scale-factor={my_dpi}")
     # proxy_server = "47.243.92.199:3128"
     # chrome_options.add_argument(f'--proxy-server={proxy_server}')
     driver = webdriver.Chrome(options=chrome_options)
 
     try:
         driver.get(website_url)
+        driver.execute_script("document.body.style.zoom = '100%'")
 
         # Replace WebDriverWait with time.sleep
         time.sleep(2)  # Adjust the sleep duration based on your needs
@@ -87,12 +91,18 @@ def get_html_page():
 
         # Get the URL after login
         received_html = driver.page_source
+        table_img = driver.find_element(By.ID, "search-results")
+        table_img.screenshot("table.png")
 
     except NoSuchElementException:
         received_html = driver.page_source
+        table_img = driver.find_element(By.ID, "search-results")
+        table_img.screenshot("table.png")
 
     finally:
         received_html = driver.page_source
+        table_img = driver.find_element(By.ID, "search-results")
+        table_img.screenshot("table.png")
         driver.quit()
     return received_html
 
