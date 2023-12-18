@@ -8,12 +8,15 @@ from selenium.webdriver.common.by import By
 import time
 import json
 import re
+import extractor
+import list_corrector
 
 r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
 my_dpi = 4.0
+img_path = "table.png"
 
 
 def get_data_from_website(page_source):
@@ -43,8 +46,14 @@ def get_data_from_website(page_source):
 
 
 def set_database_records():
-    table_img = ""
     records_list = get_data_from_website(get_html_page())
+    prices_b = [x["Price"] for x in records_list]
+    prices_a = extractor.extract_price_list(img_path)
+    prices_b = list_corrector.restore_strings(prices_a, prices_b)
+    for i in range(len(prices_b)):
+        records_list[i]
+    
+    
     r.delete('records_data')
     for record in records_list:
         # Convert the dictionary to a JSON string
