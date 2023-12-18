@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 import json
+import re
 
 r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
@@ -17,34 +18,32 @@ website_url = "https://namebio.com"
 def get_data_from_website(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
 
-    # Find the table with the specified ID
-    table = soup.find('table-scrollable', {'id': 'search-results'})
-    records = []
-    # Check if the table is found
-    if table:
-        # Find all rows in the table body
 
-        rows = table.find('tbody').find_all('tr')
+# Find the table with class "table-scrollable"
+    table = soup.find('div', class_='table-scrollable').find('table')
 
-        # Iterate through rows and extract data
-        for row in rows:
-            record = {}
-            columns = row.find_all('td')
-            # Extracting data from each column
+# Extract data from each row
+    data = []
+    for row in table.find('tbody').find_all('tr'):
+        domain = row.find('a', class_='domain-details-link').get('href')
+        price = re.search(
+            r'(\d[\d,.]*) USD', row.find_all('td')[1].text).group(1).replace(',', '')
+        date = row.find_all('td')[2].text
+        venue = row.find_all('td')[3].text
 
-            record['domain'] = columns[0].find('a').get('href')
-            record['price'] = columns[1].text.replace(' USD', '')
-            record['date'] = columns[2].text
-            record['venue'] = columns[3].text
+        data.append({
+            'Domain': domain,
+            'Price': price,
+            'Date': date,
+            'Venue': venue
+        })
 
-            # Print or store the extracted data as needed
-            records.append(record)
-
-    return records
+    return data
 
 
 def set_database_records():
     records_list = get_data_from_website(get_html_page())
+    print(records_list)
     r.delete('records_data')
     for record in records_list:
         # Convert the dictionary to a JSON string
@@ -58,7 +57,6 @@ def get_html_page():
     chrome_options = Options()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--headless')
     # proxy_server = "47.243.92.199:3128"
     # chrome_options.add_argument(f'--proxy-server={proxy_server}')
     driver = webdriver.Chrome(options=chrome_options)
@@ -94,6 +92,7 @@ def get_html_page():
         received_html = driver.page_source
 
     finally:
+        received_html = driver.page_source
         driver.quit()
     return received_html
 
