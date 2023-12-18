@@ -68,7 +68,6 @@ def get_html_page():
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument("--window-size=6000x5000")
     chrome_options.add_argument(f"--force-device-scale-factor={my_dpi}")
     # proxy_server = "47.243.92.199:3128"
