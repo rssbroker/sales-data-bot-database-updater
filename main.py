@@ -47,12 +47,14 @@ def get_data_from_website(page_source):
 
 def set_database_records():
     records_list = get_data_from_website(get_html_page())
+    
     prices_b = [x["Price"] for x in records_list]
     prices_a = extractor.extract_price_list(img_path)
     prices_b = list_corrector.restore_strings(prices_a, prices_b)
     for i in range(len(prices_b)):
-        records_list[i]
-    
+        new_dictionary = records_list[i]
+        new_dictionary["Price"] = prices_b[i]
+        records_list[i] = new_dictionary
     
     r.delete('records_data')
     for record in records_list:
