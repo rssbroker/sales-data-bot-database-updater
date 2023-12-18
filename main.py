@@ -43,7 +43,6 @@ def get_data_from_website(page_source):
 
 def set_database_records():
     records_list = get_data_from_website(get_html_page())
-    print(records_list)
     r.delete('records_data')
     for record in records_list:
         # Convert the dictionary to a JSON string
