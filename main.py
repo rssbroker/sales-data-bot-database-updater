@@ -82,7 +82,7 @@ def get_html_page():
         time.sleep(2)  # Adjust the sleep duration based on your needs
 
         # Find the Member Login link
-        member_button = driver.find_element(By.LINK_TEXT, "Member Login")
+        member_button = driver.find_element(By.LINK_TEXT, 'Member Login')
 
         # If the login link is present, perform login
         member_button.click()
