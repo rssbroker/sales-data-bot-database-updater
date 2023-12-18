@@ -34,7 +34,8 @@ def get_data_from_website(page_source):
         # Extracting data from each column
 
         record['Domain'] = columns[0].find('a').text.strip()
-        record['Price'] = columns[1].text.replace(' USD', '')
+        record['Price'] = columns[1].text.replace(
+            '.', '').replace(',', '').replace(' USD', '')
         record['Date'] = columns[2].text.strip()
         record['Venue'] = columns[3].text.strip()
 
@@ -68,6 +69,7 @@ def get_html_page():
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
+    # chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument("--window-size=6000x5000")
     chrome_options.add_argument(f"--force-device-scale-factor={my_dpi}")
     # proxy_server = "47.243.92.199:3128"
@@ -77,7 +79,6 @@ def get_html_page():
     try:
         driver.get(website_url)
         driver.execute_script("document.body.style.zoom = '100%'")
-
         # Replace WebDriverWait with time.sleep
         time.sleep(2)  # Adjust the sleep duration based on your needs
 
@@ -101,7 +102,7 @@ def get_html_page():
 
         driver.find_element(By.CLASS_NAME, 'page-logo').click()
 
-        time.sleep(2)
+        time.sleep(5)
 
         # Get the URL after login
         received_html = driver.page_source
