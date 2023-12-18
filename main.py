@@ -24,21 +24,21 @@ def get_data_from_website(page_source):
 
 
 # Find the table with class "table-scrollable"
-    table = soup.find('table-scrollable', {'id': 'search-results'})
+    table = soup.find('div', class_='table-scrollable')
 
 # Extract data from each row
     data = []
     for row in table.find('tbody').find_all('tr'):
         record = {}
         columns = row.find_all('td')
-            # Extracting data from each column
+        # Extracting data from each column
 
         record['Domain'] = columns[0].find('a').text.strip()
         record['Price'] = columns[1].text.replace(' USD', '')
         record['Date'] = columns[2].text.strip()
-        record['Venue'] = columns[3].find('a').text.strip()
+        record['Venue'] = columns[3].text.strip()
 
-            # Print or store the extracted data as needed
+        # Print or store the extracted data as needed
         data.append(record)
 
     return data
@@ -46,7 +46,7 @@ def get_data_from_website(page_source):
 
 def set_database_records():
     records_list = get_data_from_website(get_html_page())
-    
+
     prices_b = [x["Price"] for x in records_list]
     prices_a = extractor.extract_price_list(img_path)
     prices_b = list_corrector.restore_strings(prices_a, prices_b)
@@ -54,7 +54,7 @@ def set_database_records():
         new_dictionary = records_list[i]
         new_dictionary["Price"] = prices_b[i]
         records_list[i] = new_dictionary
-    
+
     r.delete('records_data')
     for record in records_list:
         # Convert the dictionary to a JSON string
@@ -94,10 +94,14 @@ def get_html_page():
         driver.find_element(
             By.XPATH, "//*[@id='password']").send_keys(password)
         driver.find_element(
-            By.XPATH, "/html/body/div[7]/div[2]/div/div[3]/button").click()
+            By.CLASS_NAME, "btn-success").click()
 
         # Replace WebDriverWait with time.sleep for waiting after login
         time.sleep(2)  # Adjust the sleep duration based on your needs
+
+        driver.find_element(By.CLASS_NAME, 'page-logo').click()
+
+        time.sleep(2)
 
         # Get the URL after login
         received_html = driver.page_source
@@ -106,6 +110,7 @@ def get_html_page():
 
     except NoSuchElementException:
         received_html = driver.page_source
+        time.sleep(5)
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table.png")
 
