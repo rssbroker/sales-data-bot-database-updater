@@ -2,5 +2,4 @@ bs4
 redis
 selenium
 img2table
-pytesseract
 pillow
