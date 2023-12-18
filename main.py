@@ -24,23 +24,22 @@ def get_data_from_website(page_source):
 
 
 # Find the table with class "table-scrollable"
-    table = soup.find('div', class_='table-scrollable').find('table')
+    table = soup.find('table-scrollable', {'id': 'search-results'})
 
 # Extract data from each row
     data = []
     for row in table.find('tbody').find_all('tr'):
-        domain = row.find('a', class_='domain-details-link').get('href')
-        price = re.search(
-            r'(\d[\d,.]*) USD', row.find_all('td')[1].text).group(1).replace(',', '')
-        date = row.find_all('td')[2].text
-        venue = row.find_all('td')[3].text
+        record = {}
+        columns = row.find_all('td')
+            # Extracting data from each column
 
-        data.append({
-            'Domain': domain,
-            'Price': price,
-            'Date': date,
-            'Venue': venue
-        })
+        record['Domain'] = columns[0].find('a').text.strip()
+        record['Price'] = columns[1].text.replace(' USD', '')
+        record['Date'] = columns[2].text.strip()
+        record['Venue'] = columns[3].find('a').text.strip()
+
+            # Print or store the extracted data as needed
+        data.append(record)
 
     return data
 
