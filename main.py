@@ -43,6 +43,7 @@ def get_data_from_website(page_source):
 
 
 def set_database_records():
+    table_img = ""
     records_list = get_data_from_website(get_html_page())
     r.delete('records_data')
     for record in records_list:
