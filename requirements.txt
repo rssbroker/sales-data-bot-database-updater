@@ -3,4 +3,5 @@ redis
 selenium
 img2table
 pillow
+pytesseract
 tesseract-ocr
