@@ -8,8 +8,8 @@ def extract_price_list(img_path):
     img = Grayscale.open(img_path).convert("L")
     sharpness = ImageEnhance.Sharpness(img)
     img = sharpness.enhance(2.0)
-    img.save('/home/runner/work/sales-data-bot-database-updater/sales-data-bot-database-updater/greyscale.png')
-    g_img_path = "/home/runner/work/sales-data-bot-database-updater/sales-data-bot-database-updater/greyscale.png"
+    img.save('greyscale.png')
+    g_img_path = "greyscale.png"
     img = Image(src=g_img_path)
     tesseract = TesseractOCR()
     tables = img.extract_tables(ocr=tesseract, implicit_rows=False, min_confidence=0)
