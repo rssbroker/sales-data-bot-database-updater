@@ -109,15 +109,20 @@ def get_html_page():
         time.sleep(10)
 
         # Get the URL after login
+        button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[2]/a')
+        button_next.click()
+        time.sleep(10)
         received_html1 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table1.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
         time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
         time.sleep(10)
@@ -126,16 +131,20 @@ def get_html_page():
         table_img.screenshot("table3.png")
 
     except NoSuchElementException:
-        received_html1 = driver.page_source
+        button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[2]/a')
+        button_next.click()
         time.sleep(10)
+        received_html1 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table1.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
         time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
         time.sleep(10)
@@ -144,16 +153,20 @@ def get_html_page():
         table_img.screenshot("table3.png")
 
     finally:
-        received_html1 = driver.page_source
+        button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[2]/a')
+        button_next.click()
         time.sleep(10)
+        received_html1 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table1.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
         time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
+        
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
         time.sleep(10)
@@ -161,6 +174,7 @@ def get_html_page():
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table3.png")
         driver.quit()
+        
     return received_html1, received_html2, received_html3
 
 
