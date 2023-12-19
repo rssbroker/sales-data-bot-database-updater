@@ -3,4 +3,3 @@ redis
 selenium
 img2table
 pillow
-tesseract-ocr
