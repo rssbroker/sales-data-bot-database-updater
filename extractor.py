@@ -13,7 +13,7 @@ def extract_price_list(img_path):
     img = Image(src=g_img_path)
     tesseract = TesseractOCR()
     tables = img.extract_tables(
-        ocr=tesseract, min_confidence=0)
+        ocr=tesseract, implicit_rows=False, min_confidence=0)
     table_work = tables[0].df
     table_work = table_work.iloc[:, 1]
     table_work = table_work.tolist()
