@@ -71,7 +71,7 @@ def get_html_page():
     received_html = ''
     chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     chrome_options = Options()
-    options = ["--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors", "--disable-extensions", "--no-sandbox", "--disable-dev-shm-usage", "--force-device-scale-factor={2.0}"]
+    options = ["--headless", "--disable-gpu", "--window-size=6000x5000", "--ignore-certificate-errors", "--disable-extensions", "--no-sandbox", "--disable-dev-shm-usage", "--force-device-scale-factor={2.0}"]
     
     for option in options:
         chrome_options.add_argument(option)
@@ -79,7 +79,7 @@ def get_html_page():
 
     try:
         driver.get(website_url)
-        # driver.execute_script("document.body.style.zoom = '100%'")
+        driver.execute_script("document.body.style.zoom = '100%'")
         # Replace WebDriverWait with time.sleep
         time.sleep(2)  # Adjust the sleep duration based on your needs
 
