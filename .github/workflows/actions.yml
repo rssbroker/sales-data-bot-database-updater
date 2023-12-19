@@ -14,6 +14,7 @@ jobs:
         run: |
           sudo apt install tesseract-ocr
           sudo apt install libtesseract-dev
+          sudo apt install chromium-browser
           
 
       - name: setup python3
