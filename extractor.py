@@ -18,5 +18,5 @@ def extract_price_list(img_path):
     table_work = table_work.tolist()
     new_table_work = [input_string.replace(',', '').replace('.', '').replace("USD", "").strip() for input_string in table_work]
     if len(new_table_work) > 10:
-        new_table_work = new_table_work[-10:-1]
+        new_table_work = new_table_work[-10:]
     return new_table_work
