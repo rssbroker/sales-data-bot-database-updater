@@ -80,7 +80,7 @@ def get_html_page():
         driver.get(website_url)
         driver.execute_script("document.body.style.zoom = '100%'")
         # Replace WebDriverWait with time.sleep
-        time.sleep(2)  # Adjust the sleep duration based on your needs
+        time.sleep(10)  # Adjust the sleep duration based on your needs
 
         # Find the Member Login link
         member_button = driver.find_element(By.LINK_TEXT, 'Member Login')
@@ -89,7 +89,7 @@ def get_html_page():
         member_button.click()
 
         # Replace WebDriverWait with time.sleep for subsequent actions
-        time.sleep(2)  # Adjust the sleep duration based on your needs
+        time.sleep(10)  # Adjust the sleep duration based on your needs
 
         driver.find_element(By.XPATH, "//*[@id='email']").send_keys(email)
         driver.find_element(
@@ -98,11 +98,11 @@ def get_html_page():
             By.CLASS_NAME, "btn-success").click()
 
         # Replace WebDriverWait with time.sleep for waiting after login
-        time.sleep(2)  # Adjust the sleep duration based on your needs
+        time.sleep(10)  # Adjust the sleep duration based on your needs
 
         driver.find_element(By.CLASS_NAME, 'page-logo').click()
 
-        time.sleep(5)
+        time.sleep(10)
 
         # Get the URL after login
         received_html = driver.page_source
@@ -111,12 +111,13 @@ def get_html_page():
 
     except NoSuchElementException:
         received_html = driver.page_source
-        time.sleep(5)
+        time.sleep(10)
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table.png")
 
     finally:
         received_html = driver.page_source
+        time.sleep(10)
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table.png")
         driver.quit()
