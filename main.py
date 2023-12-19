@@ -16,7 +16,7 @@ email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
 my_dpi = 2.0
-img_path = "/home/runner/work/sales-data-bot-database-updater/sales-data-bot-database-updater/table.png"
+img_path = "table.png"
 
 
 def get_data_from_website(page_source):
@@ -79,7 +79,7 @@ def get_html_page():
 
     try:
         driver.get(website_url)
-        driver.execute_script("document.body.style.zoom = '100%'")
+        # driver.execute_script("document.body.style.zoom = '100%'")
         # Replace WebDriverWait with time.sleep
         time.sleep(2)  # Adjust the sleep duration based on your needs
 
