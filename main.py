@@ -15,7 +15,7 @@ r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
-my_dpi = 4.0
+my_dpi = 2.0
 img_path = "table.png"
 
 
@@ -67,9 +67,10 @@ def set_database_records():
 def get_html_page():
     received_html = ''
     chrome_options = Options()
-    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
-    # chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument("--window-size=6000x5000")
     chrome_options.add_argument(f"--force-device-scale-factor={my_dpi}")
     # proxy_server = "47.243.92.199:3128"
