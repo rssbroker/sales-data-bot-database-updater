@@ -70,7 +70,7 @@ def get_html_page():
     received_html = ''
     chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     chrome_options = Options()
-    options = ["--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors", "--disable-extensions", "--no-sandbox", "--disable-dev-shm-usage"]
+    options = ["--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors", "--disable-extensions", "--no-sandbox", "--disable-dev-shm-usage", "--force-device-scale-factor={2.0}"]
     
     for option in options:
         chrome_options.add_argument(option)
