@@ -20,9 +20,6 @@ password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
 img_path = "table.png"
 
-def update_counter():
-    r.set("counter", (r.get("counter") + 1) % 24)
-
 def get_data_from_website(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
 
