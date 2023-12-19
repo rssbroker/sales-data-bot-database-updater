@@ -65,12 +65,7 @@ def set_database_records():
         new_dictionary["Price"] = prices_b[i]
         records_list[i] = new_dictionary
 
-    r.delete('records_data')
-    for record in records_list:
-        # Convert the dictionary to a JSON string
-        json_data = json.dumps(record)
-    # Use RPUSH to push the JSON string to the end of a list
-        r.rpush('records_data', json_data)
+    r.set('records_data', json.dumps(records_list))
 
 
 def get_html_page():
