@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import redis
 import os
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -66,16 +68,13 @@ def set_database_records():
 
 def get_html_page():
     received_html = ''
+    chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     chrome_options = Options()
-    chrome_options.add_argument('--disable-gpu')
-    # chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--window-size=6000x5000")
-    chrome_options.add_argument(f"--force-device-scale-factor={my_dpi}")
-    # proxy_server = "47.243.92.199:3128"
-    # chrome_options.add_argument(f'--proxy-server={proxy_server}')
-    driver = webdriver.Chrome(options=chrome_options)
+    options = ["--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors", "--disable-extensions", "--no-sandbox", "--disable-dev-shm-usage"]
+    
+    for option in options:
+        chrome_options.add_argument(option)
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     try:
         driver.get(website_url)
