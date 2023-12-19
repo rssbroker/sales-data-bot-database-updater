@@ -56,7 +56,10 @@ def set_database_records():
     records_list3 = get_data_from_website(pagep[2])
     records_list = records_list1 + records_list2 +records_list3
     prices_b = [x["Price"] for x in records_list]
-    prices_a = extractor.extract_price_list(img_path)
+    prices_a1 = extractor.extract_price_list(img_path_1)
+    prices_a2 = extractor.extract_price_list(img_path_2)
+    prices_a3 = extractor.extract_price_list(img_path_3)
+    prices_a = prices_a1 + prices_a2 + prices_a2
     prices_b = list_corrector.restore_strings(prices_a, prices_b)
     for i in range(len(prices_b)):
         new_dictionary = records_list[i]
