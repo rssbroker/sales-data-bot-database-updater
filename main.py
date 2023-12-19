@@ -53,12 +53,12 @@ def set_database_records():
     records_list1 = get_data_from_website(page[0])
     records_list2 = get_data_from_website(page[1])
     records_list3 = get_data_from_website(page[2])
-    records_list = records_list1 + records_list2 +records_list3
+    records_list = records_list1 + records_list2 + records_list3
     prices_b = [x["Price"] for x in records_list]
     prices_a1 = extractor.extract_price_list(img_path_1)
     prices_a2 = extractor.extract_price_list(img_path_2)
     prices_a3 = extractor.extract_price_list(img_path_3)
-    prices_a = prices_a1 + prices_a2 + prices_a2
+    prices_a = prices_a1 + prices_a2 + prices_a3
     prices_b = list_corrector.restore_strings(prices_a, prices_b)
     for i in range(len(prices_b)):
         new_dictionary = records_list[i]
@@ -119,13 +119,13 @@ def get_html_page():
         table_img.screenshot("table1.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html3 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table3.png")
@@ -137,13 +137,13 @@ def get_html_page():
         table_img.screenshot("table1.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html3 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table3.png")
@@ -155,13 +155,13 @@ def get_html_page():
         table_img.screenshot("table1.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[3]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html2 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table2.png")
         button_next = driver.find_element(By.XPATH, '//*[@id="search-results_paginate"]/ul/li[4]/a')
         button_next.click()
-        time.sleep(3)
+        time.sleep(10)
         received_html3 = driver.page_source
         table_img = driver.find_element(By.ID, "search-results")
         table_img.screenshot("table3.png")
