@@ -4,3 +4,4 @@ selenium
 img2table
 pillow
 tesseract
+webdriver-manager
