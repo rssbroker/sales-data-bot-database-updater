@@ -8,7 +8,7 @@ def extract_price_list(img_path):
     img = Grayscale.open(img_path).convert("L")
     sharpness = ImageEnhance.Sharpness(img)
     img = sharpness.enhance(2.0)
-    numbered = [int(i) for i in img_path.split('') if i.isdigit()]
+    numbered = [int(i) for i in img_path if i.isdigit()]
     img.save(f"greyscale{numbered[0]}.png")
     g_img_path = f"greyscale{numbered[0]}.png"
     img = Image(src=g_img_path)
