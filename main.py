@@ -18,7 +18,9 @@ r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
-img_path = "table.png"
+img_path_1 = "table1.png"
+img_path_2 = "table2.png"
+img_path_3 = "table3.png"
 
 def get_data_from_website(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
