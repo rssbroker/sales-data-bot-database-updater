@@ -50,7 +50,7 @@ def set_database_records():
     page = get_html_page()
     records_list1 = get_data_from_website(page[0])
     records_list2 = get_data_from_website(page[1])
-    records_list3 = get_data_from_website(pagep[2])
+    records_list3 = get_data_from_website(page[2])
     records_list = records_list1 + records_list2 +records_list3
     prices_b = [x["Price"] for x in records_list]
     prices_a1 = extractor.extract_price_list(img_path_1)
