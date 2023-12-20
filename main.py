@@ -65,6 +65,10 @@ def set_database_records():
         new_dictionary["Price"] = prices_b[i]
         records_list[i] = new_dictionary
 
+    previous_db_data = json.loads(r.get("records_data"))
+    if (records_list != previous_db_data):
+        r.set("counter", 0)
+    
     r.set('records_data', json.dumps(records_list))
 
 
