@@ -5,16 +5,21 @@ def update(list_a, list_b, counter):
     return list_a_new
     
   list_a_new = find_unique_elements(list_a, list_b)
+
+  unordered_index = counter
+  while unordered_index < len(list_b) and list_b[unordered_index] in list_a:
+    unordered_index += 1
+  
   index = 0
-  if len(list_a_new) <= (30 - counter - 1):
-    for i in range(counter, counter + len(list_a_new)):
+  if len(list_a_new) <= (30 - unordered_counter - 1):
+    for i in range(unoredered_counter, unordered_counter + len(list_a_new)):
       list_b[i] = list_a_new[index]
       index = index + 1
   else:
-    for i in range(counter, 30):
+    for i in range(unordered_counter, 30):
       list_b[i] = list_a_new[index]
       index = index + 1
-    for j in range(len(list_a_new) - 30 + counter):
+    for j in range(len(list_a_new) - 30 + unordered_counter):
       list_b[i] = list_a_new[index]
       index = index + 1
       
