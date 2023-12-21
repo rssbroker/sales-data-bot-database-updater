@@ -13,6 +13,7 @@ import json
 import re
 import extractor
 import list_corrector
+import list_updater
 
 r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
@@ -66,8 +67,7 @@ def set_database_records():
         records_list[i] = new_dictionary
 
     previous_db_data = json.loads(r.get("records_data"))
-    if (records_list != previous_db_data):
-        r.set("counter", 0)
+    records_list = list_updater.update(records_list, previous_db_data, int(r.get("counter")))
     
     r.set('records_data', json.dumps(records_list))
 
