@@ -12,15 +12,21 @@ def update(list_a, list_b, counter):
   
   index = 0
   if len(list_a_new) <= (30 - unordered_counter - 1):
-    for i in range(unoredered_counter, unordered_counter + len(list_a_new)):
+    for i in range(unordered_counter, unordered_counter + len(list_a_new)):
       list_b[i] = list_a_new[index]
       index = index + 1
+      if (index == len(list_a_new)):
+        break
   else:
     for i in range(unordered_counter, 30):
       list_b[i] = list_a_new[index]
       index = index + 1
+      if (index == len(list_a_new)):
+        break
     for j in range(len(list_a_new) - 30 + unordered_counter):
       list_b[i] = list_a_new[index]
       index = index + 1
+      if (index == len(list_a_new)):
+        break
       
   return list_b
