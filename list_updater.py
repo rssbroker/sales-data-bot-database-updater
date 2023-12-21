@@ -1,7 +1,7 @@
 def update(list_a, list_b, counter):
   def find_unique_elements(list_a, list_b):
-    set_b = set(list_b)
-    list_a_new = [value for value in list_a if value not in set_b]
+    set_b = set(map(lambda d: frozenset(d.items()), list_b))
+    list_a_new = [item for item in list_a if frozenset(item.items()) not in set_b]
     return list_a_new
     
   list_a_new = find_unique_elements(list_a, list_b)
