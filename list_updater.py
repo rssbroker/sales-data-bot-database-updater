@@ -24,7 +24,7 @@ def update(list_a, list_b, counter):
       if (index == len(list_a_new)):
         break
     for j in range(len(list_a_new) - 30 + unordered_counter):
-      list_b[i] = list_a_new[index]
+      list_b[j] = list_a_new[index]
       index = index + 1
       if (index == len(list_a_new)):
         break
