@@ -6,7 +6,7 @@ def update(list_a, list_b, counter):
     
   list_a_new = find_unique_elements(list_a, list_b)
 
-  unordered_index = counter
+  unordered_counter = counter
   while unordered_index < len(list_b) and list_b[unordered_index] in list_a:
     unordered_index += 1
   
