@@ -77,7 +77,7 @@ def set_database_records():
             output_stack = output_stack + list(reversed(new_data))
             r.set('stack', json.dumps(output_stack))
         else:
-            output_stack = output_stack + list(reversed(new_data))
+            output_stack = list(reversed(new_data))
             r.set('stack', json.dumps(output_stack))
 
 
