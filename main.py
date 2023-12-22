@@ -66,10 +66,19 @@ def set_database_records():
         new_dictionary["Price"] = prices_b[i]
         records_list[i] = new_dictionary
 
-    previous_db_data = json.loads(r.get("records_data"))
-    records_list = list_updater.update(records_list, previous_db_data, int(r.get("counter")))
-    
+    previous_db_data = json.loads(r.get('records_data'))
+    new_data = list_updater.find_unique_elements(records_list, previous_db_data)
     r.set('records_data', json.dumps(records_list))
+
+    if new_data:
+        raw_stack = r.get('stack')
+        if raw_stack:
+            output_stack = json.loads(r.get('stack'))
+            output_stack = output_stack + new_data.reverse()
+            r.set('stack', json.dumps(output_stack))
+        else:
+            output_stack = new_data.reverse()
+            r.set('stack', json.dumps(output_stack))
 
 
 def get_html_page():
