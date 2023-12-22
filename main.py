@@ -69,15 +69,16 @@ def set_database_records():
     previous_db_data = json.loads(r.get('records_data'))
     new_data = list_updater.find_unique_elements(records_list, previous_db_data)
     r.set('records_data', json.dumps(records_list))
-
-    raw_stack = r.get('stack')
-    if raw_stack:
-        output_stack = json.loads(r.get('stack'))
-        output_stack = output_stack + new_data.reverse()
-        r.set('stack', json.dumps(output_stack))
-    else:
-        output_stack = new_data.reverse()
-        r.set('stack', json.dumps(output_stack))
+    
+    if new_data:
+        raw_stack = r.get('stack')
+        if raw_stack:
+            output_stack = json.loads(raw_stack)
+            output_stack = output_stack + new_data.reverse()
+            r.set('stack', json.dumps(output_stack))
+        else:
+            output_stack = new_data.reverse()
+            r.set('stack', json.dumps(output_stack))
 
 
 def get_html_page():
