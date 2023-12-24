@@ -74,6 +74,8 @@ def set_database_records():
         raw_stack = r.get('stack')
         if raw_stack:
             output_stack = json.loads(raw_stack)
+            if len(output_stack == 60):
+                output_stack = output_stack[30:]
             output_stack = output_stack + list(reversed(new_data))
             r.set('stack', json.dumps(output_stack))
         else:
