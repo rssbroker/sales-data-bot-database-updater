@@ -79,7 +79,7 @@ def get_html_pages():
         driver.get(website_url)
         driver.execute_script("document.body.style.zoom = '100%'")
         time.sleep(10)
-        member_button = driver.find_element(By.LINK_TEXT. "Member Login")
+        member_button = driver.find_element(By.LINK_TEXT, "Member Login")
         member_button.click()
         time.sleep(10)
         driver.find_element(By.XPATH, "//*[@id='email']").send_keys(email)
