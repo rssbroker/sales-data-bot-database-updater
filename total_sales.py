@@ -48,7 +48,9 @@ def get_total_sales(input_date, records_list):
     for record in records_list:
         record_date = date_parser(record["Date"])
         if date_difference(formatted_input_date, record_date) == 1:
-            total_sales += int(record["Price"])
+            price = record["Price"]
+            price = price.replace(",", "")
+            total_sales += int(price)
     return total_sales
 
 
