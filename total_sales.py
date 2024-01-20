@@ -216,7 +216,7 @@ def check_date(page_source) -> bool:
     soup = BeautifulSoup(page_source, 'html.parser')
     table = soup.find('div', class_='table-scrollable')
     columns = table.find('tbody').find('tr').find_all('td')
-    date_column = columns[2].text.strip
+    date_column = columns[2].text.strip()
     formatted_date = date_parser(date_column)
     database_date = str(r.get('date'), encoding='utf-8')
     formatted_database_date = date_parser(database_date)
