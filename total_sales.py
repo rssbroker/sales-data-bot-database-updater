@@ -232,7 +232,7 @@ def check_if_end(page_source):
     table = soup.find('div', class_='table-scrollable')
     for row in table.find('tbody').find_all('tr'):
         columns = row.find_all('td')
-        date_column = columns[2].text.strip
+        date_column = columns[2].text.strip()
         formatted_date = date_parser(date_column)
         database_date = str(r.get('date'), encoding='utf-8')
         formatted_database_date = date_parser(database_date)
