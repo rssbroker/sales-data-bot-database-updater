@@ -15,7 +15,6 @@ r = redis.from_url(os.environ["REDIS_URL"])
 email = os.environ["NAMEBIO_EMAIL"]
 password = os.environ["NAMEBIO_PASSWORD"]
 website_url = "https://namebio.com"
-img_paths = []
 
 def get_data_from_website(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
@@ -24,7 +23,6 @@ def get_data_from_website(page_source):
     for row in table.find('tbody').find_all('tr'):
         record = {}
         columns = row.find_all('td')
-        record['Domain'] = columns[0].find('a').text.strip()
         record['Price'] = columns[1].text.replace(
             '.', '').replace(',', '').replace(' USD', '')
         record['Date'] = columns[2].text.strip()
@@ -72,14 +70,13 @@ def get_html_pages():
     chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     chrome_options = Options()
     options = ["--headless", "--window-size=6000x5000",
-               "--no-sandbox", "--force-device-scale-factor=4.0"]
+               "--no-sandbox"]
     for option in options:
         chrome_options.add_argument(option)
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     try:
         driver.get(website_url)
-        driver.execute_script("document.body.style.zoom = '100%'")
         time.sleep(10)
         member_button = driver.find_element(By.LINK_TEXT, "Member Login")
         member_button.click()
@@ -218,7 +215,8 @@ def check_date(page_source) -> bool:
     columns = table.find('tbody').find('tr').find_all('td')
     date_column = columns[2].text.strip()
     formatted_date = date_parser(date_column)
-    database_date = str(r.get('date'), encoding='utf-8')
+    date = r.get('date')
+    database_date = str(date, encoding='utf-8')
     formatted_database_date = date_parser(database_date)
     if formatted_database_date != formatted_date:
         r.set('date', date_column)
