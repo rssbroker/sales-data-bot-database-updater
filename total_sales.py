@@ -3,7 +3,7 @@ import redis
 import os
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
+# from webdriver_manager.core.os_manager import ChromeType
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -67,7 +67,7 @@ def date_parser(input):
 
 def get_html_pages():
     html_pages = []
-    chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+    chrome_service = Service(ChromeDriverManager().install())
     chrome_options = Options()
     options = ["--headless", "--window-size=6000x5000",
                "--no-sandbox"]
