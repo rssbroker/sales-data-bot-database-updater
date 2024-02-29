@@ -6,3 +6,4 @@ pillow
 tesseract
 webdriver-manager
 typing-extensions
+feedparser
